@@ -1,17 +1,19 @@
 class UsersController < ApplicationController
 
+  skip_before_action :authorized, only: [:new, :create]
+
   def new
-    @user = User.new
+      @user = User.new
   end
 
   def create
-    @user = User.create(user_params)
-    if @user.save
-        session[:user_id] = @user.id
-        redirect_to '/welcome', :notice => "Signed up!"
-    else
-        render "new"
-    end
+      @user = User.create(user_params)
+      if @user.save
+          session[:user_id] = @user.id
+          redirect_to '/welcome', :notice => "Signed up!"
+      else
+          render "new"
+      end
   end
 
   private
