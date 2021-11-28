@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   get "sign_up", to: "users#new"
   get "log_in", to: "sessions#new"
   post "log_in", to: "sessions#create"
-  delete "log_out", to: "sessions#destroy"
-  resources :users, except: [:new]
+  get "log_out", to: "sessions#destroy"
   get "welcome", to: "sessions#welcome"
+  
+  root to: "sessions#welcome"
+
+  resources :users, :sessions, except: [:new]
+  
 end
