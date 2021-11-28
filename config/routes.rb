@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   get "welcome", to: "sessions#welcome"
   
   get "password/reset", to: "password_resets#new"
-  post "password.reset", to: "password_resets#create"
+
+  put "leave/:id", to: "users#leave_organisation"
+  put "join/:id", to: "users#join_organisation"
 
   root to: "sessions#welcome"
 
