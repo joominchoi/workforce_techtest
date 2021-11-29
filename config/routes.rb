@@ -18,6 +18,6 @@ Rails.application.routes.draw do
 
   root to: "sessions#overview"
 
-  resources :users, :sessions, :organisations, except: [:new]
+  resources :users, :sessions, :organisations, :shifts, except: [:new]
   
 end
