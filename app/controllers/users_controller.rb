@@ -15,6 +15,36 @@ class UsersController < ApplicationController
           render "new"
       end
   end
+  
+  def edit
+    @user = User.find(current_user.id)
+  end
+
+  def update
+    @user = User.update(current_user.id, user_params)
+    if @user.errors.any?
+        render "edit"
+    else
+        if current_user.organisation_id != nil
+            redirect_to overview_path
+        else
+            redirect_to welcome_path
+        end
+    end
+  end
+
+  def join_organisation
+    organisation = Organisation.find(params[:id])
+    if organisation
+        User.update(current_user.id, organisation_id: organisation.id)
+        redirect_to overview_path
+    end
+  end
+
+  def leave_organisation
+    User.update(current_user.id, organisation_id: nil)
+    redirect_to welcome_path
+  end 
 
   private
 

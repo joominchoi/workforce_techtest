@@ -44,12 +44,4 @@ class SessionsController < ApplicationController
     end
   end
 
-#   def login
-#   end
-
-#   def welcome
-#   end
-
-#   def page_requires_login
-#   end
 end
