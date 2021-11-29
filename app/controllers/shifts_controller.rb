@@ -22,8 +22,8 @@ class ShiftsController < ApplicationController
 
   def create
       date = shift_params[:date]
-      start_datetime = DateTime.parse(date + " " + shift_params[:start] + ":00 +1000")
-      finish_datetime = DateTime.parse(date + " " + shift_params[:finish] + ":00 +1000")
+      start_datetime = DateTime.parse(date + " " + shift_params[:start])
+      finish_datetime = DateTime.parse(date + " " + shift_params[:finish])
       shift = Shift.create(user_id: current_user.id, start: start_datetime, finish: finish_datetime, break_length: shift_params[:break_length])
       if shift.save
           redirect_to shifts_path
