@@ -8,14 +8,16 @@ Rails.application.routes.draw do
   get "log_out", to: "sessions#destroy"
 
   get "welcome", to: "sessions#welcome"
+
+  get "overview", to: "sessions#overview"
   
   get "password/reset", to: "password_resets#new"
 
-  put "leave/:id", to: "users#leave_organisation"
-  put "join/:id", to: "users#join_organisation"
+  put "leave/:id", to: "users#leave_organisation", :as => "leave_organisation"
+  put "join/:id", to: "users#join_organisation", :as => "join_organisation"
 
-  root to: "sessions#welcome"
+  root to: "sessions#overview"
 
-  resources :users, :sessions, except: [:new]
+  resources :users, :sessions, :organisations, except: [:new]
   
 end
