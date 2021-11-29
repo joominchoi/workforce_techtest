@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-      @current_cuser ||= User.find(session[:user_id]) if session[:user_id]
+      @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
   def logged_in?
@@ -14,6 +14,6 @@ class ApplicationController < ActionController::Base
   end
 
   def authorized
-      redirect_to '/log_in', alert: "Need to be logged in!" if !logged_in?
+      redirect_to '/log_in', alert: "You need to be logged in!" if !logged_in?
   end
 end
