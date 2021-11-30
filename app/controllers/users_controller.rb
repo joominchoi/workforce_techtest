@@ -43,6 +43,7 @@ class UsersController < ApplicationController
 
   def leave_organisation
     User.update(current_user.id, organisation_id: nil)
+    delete_shifts
     redirect_to welcome_path
   end 
 
@@ -50,6 +51,10 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email_address, :name, :password, :password_confirmation)
+  end
+
+  def delete_shifts
+    Shift.where(user_id: current_user.id).delete_all
   end
 
 end
