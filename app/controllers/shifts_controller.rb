@@ -15,8 +15,8 @@ class ShiftsController < ApplicationController
           shift_length = (shift.finish - shift.start) / 60 / 60
           hours_worked = shift_length - Float(shift.break_length) / 60
           shift_cost = hours_worked * @organisation.hourly_rate
-          @hours_worked[shift] = hours_worked
-          @shift_costs[shift] = shift_cost
+          @hours_worked[shift] = hours_worked.round(2)
+          @shift_costs[shift] = shift_cost.round(2)
       end
   end
 
@@ -30,6 +30,18 @@ class ShiftsController < ApplicationController
       end
   end
 
+  def edit
+    @shift = Shift.find(params[:id])
+  end
+
+  def update
+    date = shift_params[:date]
+    start_datetime = combine_date_time(date, shift_params[:start])
+    finish_datetime = combine_date_time(date, shift_params[:finish])
+    Shift.update(params[:id], start: start_datetime, finish: finish_datetime, break_length: shift_params[:break_length])
+    redirect_to shifts_path
+  end
+
   def destroy
     Shift.destroy(params[:id])
     redirect_to shifts_path
@@ -38,5 +50,9 @@ class ShiftsController < ApplicationController
   private
   def shift_params
     params.require(:shift).permit(:date, :start, :finish, :break_length)
+  end
+
+  def combine_date_time(date, time)
+    Time.zone.parse(date + " " + time)
   end
 end
