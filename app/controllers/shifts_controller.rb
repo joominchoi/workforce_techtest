@@ -12,7 +12,7 @@ class ShiftsController < ApplicationController
 
       @shifts.each do |shift|
           @names[shift] = User.find(shift.user_id).name
-          shift_length = (shift.finish - shift.start) / 60 / 60
+          shift_length = shift_time(shift.start, shift.finish)
           hours_worked = shift_length - Float(shift.break_length) / 60
           shift_cost = hours_worked * @organisation.hourly_rate
           @hours_worked[shift] = hours_worked.round(2)
@@ -54,5 +54,13 @@ class ShiftsController < ApplicationController
 
   def combine_date_time(date, time)
     Time.zone.parse(date + " " + time)
+  end
+
+  def shift_time(start, finish)
+    if start.before? finish
+        (finish - start) / 60 / 60
+    else
+        24 - ((start - finish) / 60 / 60)
+    end
   end
 end
