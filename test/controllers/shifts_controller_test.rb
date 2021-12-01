@@ -1,7 +1,8 @@
 require "test_helper"
 
 class ShiftsControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should get new" do
+    get '/sign_up'
+    assert_response :success
+  end
 end
