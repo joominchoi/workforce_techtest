@@ -2,6 +2,7 @@
 
 ![](https://i.imgur.com/w1YzNY6.png)
 
+To set up project, execute the following commands:
 ```
 git clone https://github.com/jooomin/workforce_techtest.git
 
@@ -16,6 +17,15 @@ To start server:
 rails s
 ```
 
+To run tests:
+```
+bin/rails test
+```
+
+To run indvidual tests example:
+```
+bin/rails test test/models/organisation_test.rb
+```
 ## How your app should work
 
 The following illustrations should only serve as an example. You do not need to follow the designs presented below. You can split functionality out to other pages. Just make sure it is all there.
@@ -83,3 +93,6 @@ Allow users to modify or delete existing shifts.
 
 #### 5. Overnight shifts (medium)
 When creating a shift, if the finish time of a shift is earlier than the start time, the shift should be considered overnight. For example, if the start time is 7:30pm and the finish time is 1:30am, then it is an overnight shift that goes for 6 hours.
+
+#### 9. Functional or Unit tests
+Adding tests is a good idea. We don't mandate that you write any for this challenge, but feel free to go ahead and write some tests for your code.
